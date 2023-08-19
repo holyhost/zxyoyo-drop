@@ -25,6 +25,13 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 https://nextjs.org/docs/getting-started/project-structure#parallel-and-intercepted-routes
 ```
 
+### 学习资料
+
+nextjs13学习视频
+```
+https://www.youtube.com/watch?v=wm5gMKuwSYk&t=2911s
+```
+
 
 ## Learn More
 
