@@ -1,9 +1,10 @@
 "use client"
 
 import React from 'react'
-import { createStyles, Header, Menu, Group, Center, Burger, Container, rem, Text } from '@mantine/core';
+import { createStyles, Header, Menu, Group, Center, Burger, Container, rem, Text, Anchor } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown, IconBrandApple } from '@tabler/icons-react';
+import Link from 'next/link';
 // import { MantineLogo } from '@mantine/ds';
 
 
@@ -90,8 +91,8 @@ const links = [
       "label": "Pricing"
     },
     {
-      "link": "#2",
-      "label": "Support",
+      "link": "/login",
+      "label": "登录",
       "links": [
         {
           "link": "/faq",
@@ -102,8 +103,8 @@ const links = [
           "label": "Book a demo"
         },
         {
-          "link": "/forums",
-          "label": "Forums"
+          "link": "/login",
+          "label": "登录"
         }
       ]
     }
@@ -125,7 +126,7 @@ const AppHeader = () => {
               <a
                 href={link.link}
                 className={classes.link}
-                onClick={(event) => event.preventDefault()}
+                onClick={(event) => console.log('click',link.link)}
               >
                 <Center>
                   <span className={classes.linkLabel}>{link.label}</span>
@@ -143,7 +144,6 @@ const AppHeader = () => {
           key={link.label}
           href={link.link}
           className={classes.link}
-          onClick={(event) => event.preventDefault()}
         >
           {link.label}
         </a>
@@ -155,7 +155,10 @@ const AppHeader = () => {
         <Container>
           <div className={classes.inner}>
             <IconBrandApple color="#fff" size={32} />
-            <Text color="#fff" size="lg">只想优优</Text>
+            <Anchor href='/' sx={{textDecoration: 'none'}}>
+              <Text color="#fff" size="lg">只想优优</Text>
+            </Anchor>
+            
             <Group spacing={5} className={classes.links}>
               {items}
             </Group>
