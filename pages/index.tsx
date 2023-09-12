@@ -17,7 +17,13 @@ export async function getServerSideProps(context: any) {
    
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error('Failed to fetch data')
+      // throw new Error('Failed to fetch data')
+      console.log("...error when fetch poem")
+      return {
+        props: {
+          data: [],
+        },
+      };
     }
    const mydata = await res.json()
   return {

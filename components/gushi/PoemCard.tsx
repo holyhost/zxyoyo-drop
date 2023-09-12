@@ -31,8 +31,8 @@ const PoemCard = ({ index, data, width }: Props) => {
           </Text>
         </div>
       </Group> */}
-      {data.shiju.split("\n").map((item: string) => <Center mt='xs'>
-        <Text fz="xs" key={data.id + '' + index} c="dimmed">
+      {data.shiju.split("\n").map((item: string,index) => <Center  key={data.id + '' + index} mt='xs'>
+        <Text fz="xs" c="dimmed">
           {item}
         </Text>
       </Center>)}

@@ -57,8 +57,8 @@ const useStyles = createStyles((theme) => ({
   }));
 const links = [
     {
-      "link": "/about",
-      "label": "Features"
+      "link": "/todo",
+      "label": "Todo"
     },
     {
       "link": "#1",

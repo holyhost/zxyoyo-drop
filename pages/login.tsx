@@ -48,7 +48,7 @@ const Login = () => {
       })
       if(response.ok){
         console.log(await response.json())
-        router.push('/todo')
+        router.push('/')
       }else{
         console.log(await response.json())
       }
