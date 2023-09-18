@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -6,9 +6,13 @@ export const metadata: Metadata = {
     description: '记录了各种各种的技术文章',
 }
 
-const Layout = () => {
+const Layout = ({children}:{children: React.ReactNode}) => {
   return (
-    <div>Layout</div>
+    <>
+      <div>Layout</div>
+      <div>{children}</div>
+    </>
+
   )
 }
 

@@ -1,10 +1,13 @@
 "use client"
-
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { createStyles, Header, Menu, Group, Center, Burger, Container, rem, Text, Anchor } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useLocalStorage } from '@mantine/hooks';
 import { IconChevronDown, IconBrandApple } from '@tabler/icons-react';
 import Link from 'next/link';
+import useCurrentUser, { UserState } from '@/hooks/store/user.store';
+import { getProviders } from 'next-auth/react';
+import UserAvatar from './UserAvatar';
+import { useRouter } from 'next/navigation';
 // import { MantineLogo } from '@mantine/ds';
 
 
@@ -55,101 +58,39 @@ const useStyles = createStyles((theme) => ({
       marginRight: rem(5),
     },
   }));
-const links = [
-    {
-      "link": "/todo",
-      "label": "Todo"
-    },
-    {
-      "link": "#1",
-      "label": "Learn",
-      "links": [
-        {
-          "link": "/docs",
-          "label": "Documentation"
-        },
-        {
-          "link": "/resources",
-          "label": "Resources"
-        },
-        {
-          "link": "/community",
-          "label": "Community"
-        },
-        {
-          "link": "/blog",
-          "label": "Blog"
-        }
-      ]
-    },
-    {
-      "link": "/about",
-      "label": "About"
-    },
-    {
-      "link": "/pricing",
-      "label": "Pricing"
-    },
-    {
-      "link": "/login",
-      "label": "登录",
-      "links": [
-        {
-          "link": "/faq",
-          "label": "FAQ"
-        },
-        {
-          "link": "/demo",
-          "label": "Book a demo"
-        },
-        {
-          "link": "/login",
-          "label": "登录"
-        }
-      ]
-    }
-  ]
 
 const AppHeader = () => {
     const [opened, { toggle }] = useDisclosure(false);
-    const { classes } = useStyles();
-  
-    const items = links.map((link) => {
-      const menuItems = link.links?.map((item) => (
-        <Menu.Item key={item.link}>{item.label}</Menu.Item>
-      ));
-  
-      if (menuItems) {
-        return (
-          <Menu key={link.label} trigger="hover" transitionProps={{ exitDuration: 0 }} withinPortal>
-            <Menu.Target>
-              <a
-                href={link.link}
-                className={classes.link}
-                onClick={(event) => console.log('click',link.link)}
-              >
-                <Center>
-                  <span className={classes.linkLabel}>{link.label}</span>
-                  <IconChevronDown size="0.9rem" stroke={1.5} />
-                </Center>
-              </a>
-            </Menu.Target>
-            <Menu.Dropdown>{menuItems}</Menu.Dropdown>
-          </Menu>
-        );
+    const { classes } = useStyles()
+    const router = useRouter()
+    const userStore = useCurrentUser()
+    const [userInfo, setUserInfo] = useState<UserState | undefined>(undefined)
+    const [cachedUser, setCachedUser] = useLocalStorage({key: 'user', defaultValue: ''})
+    console.log(cachedUser)
+    console.log(userInfo)
+    const onLogout = ()=>{
+      setCachedUser('')
+      setUserInfo(undefined)
+      router.replace('/')
+    }
+    useEffect(()=>{
+      if(!userInfo && cachedUser){
+        try {
+          console.log('come in')
+          console.log(cachedUser)
+          setUserInfo(JSON.parse(cachedUser))
+          console.log(userInfo)
+          userInfo && userStore.update(userInfo)
+        } catch (error) {
+          console.log(error)
+        }
+      }else{
+        console.log(userInfo)
       }
-  
-      return (
-        <a
-          key={link.label}
-          href={link.link}
-          className={classes.link}
-        >
-          {link.label}
-        </a>
-      );
-    });
-  
+    })
+    
+
+
     return (
       <Header height={56} className={classes.header} mb={120}>
         <Container>
@@ -160,7 +101,27 @@ const AppHeader = () => {
             </Anchor>
             
             <Group spacing={5} className={classes.links}>
-              {items}
+              <a
+                key={'head-link-todo'}
+                href={'/todo'}
+                className={classes.link}
+              >
+                Todo
+              </a>
+              <a
+                key={'head-link-about'}
+                href={'/about'}
+                className={classes.link}
+              >
+                About
+              </a>
+              {userInfo ? <UserAvatar user={userInfo} logout= {onLogout}/> :<a
+                key={'head-link-login'}
+                href={'/login'}
+                className={classes.link}
+              >
+                登录
+              </a>}
             </Group>
             <Burger
               opened={opened}
