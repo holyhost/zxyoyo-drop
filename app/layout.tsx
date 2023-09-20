@@ -31,8 +31,9 @@ export default function RootLayout({
           }}
         >
           <UserProvider session={''}>
-              {children}
-            
+            <AppLayout>
+               {children}
+            </AppLayout>
           </UserProvider>
         </MantineProvider>
         

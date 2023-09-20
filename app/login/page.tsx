@@ -84,8 +84,7 @@ const Login = () => {
   return (
     <>
       <Meta title='登录' description='登录以验证身份信息，体验更多功能' />
-      {!inited ? 'loading' :
-        <AppLayout>
+      {!inited ? '' :
           <Container size={420} my={40}>
             <Title
               align="center"
@@ -134,7 +133,6 @@ const Login = () => {
 
             </Paper>
           </Container>
-        </AppLayout>
       }
     </>
   );

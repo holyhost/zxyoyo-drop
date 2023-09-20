@@ -19,7 +19,7 @@ const PoemCard = ({ index, data, width }: Props) => {
       </Card.Section> */}
       <Badge className={classes.dynasty}>{data.pt_name}</Badge>
       <Center>
-        <Text fw={700}>{data.title}</Text>
+        <Text fw={700} mt={'md'}>{data.title}</Text>
       </Center>
       
       {/* <Group mt="sm">
