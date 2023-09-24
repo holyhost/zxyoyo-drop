@@ -6,7 +6,6 @@ import { Inter } from 'next/font/google'
 import { MantineProvider } from '@mantine/core'
 import { Main, NextScript } from 'next/document'
 import { AppLayout } from '@/components/AppLayout'
-
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -30,7 +29,7 @@ export default function RootLayout({
             colorScheme: 'light',
           }}
         >
-          <UserProvider session={''}>
+          <UserProvider session={undefined} >
             <AppLayout>
                {children}
             </AppLayout>

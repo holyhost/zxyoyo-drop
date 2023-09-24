@@ -21,10 +21,8 @@ import { AppLayout } from '@/components/AppLayout';
 import { IconAlertCircle } from '@tabler/icons-react';
 import useCurrentUser from '@/hooks/store/user.store';
 import { useLocalStorage } from '@mantine/hooks';
-import { useSession, signIn, signOut } from "next-auth/react"
 
 const Login = () => {
-  const { data: session } = useSession()
   const [userName, setUserName] = useState('')
   const [userPwd, setUserPwd] = useState('')
   const [error, setError] = useState('')
@@ -132,8 +130,7 @@ const Login = () => {
                   {error}
                 </Alert>}
               </form>
-              <button onClick={() => signOut()}>Sign out</button>
-              <button onClick={() => signIn()}>Sign in</button>
+
             </Paper>
           </Container>
       }

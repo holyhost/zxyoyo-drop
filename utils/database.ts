@@ -8,7 +8,7 @@ export const connectToDB =async () => {
         console.log('MongoDB is already connected')
         return
     }
-    console.log("db not connecte, will do connect action...")
+    console.log("db not connect, will do connect action...")
     try{
         await mongoose.connect(process.env.MONGODB_URI ?? '', {
             dbName: "Hello",

@@ -11,7 +11,7 @@ const UserAvatar = ({
     <Menu key={'user-avatar-men'} trigger="hover" transitionProps={{ exitDuration: 0 }} withinPortal>
             <Menu.Target>
               <a
-                href={'/user/'+user.uid}
+                href={'/user/'+user.username}
                 onClick={(event) => console.log('click')}
               >
                 <Center>
@@ -39,6 +39,9 @@ const UserAvatar = ({
 export default UserAvatar
 
 type Props = {
-   user: UserState, 
+   user: {
+    username: string,
+    image: string
+   }, 
    logout: ()=> void
 }

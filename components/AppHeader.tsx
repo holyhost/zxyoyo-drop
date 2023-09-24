@@ -1,11 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { createStyles, Header, Menu, Group, Center, Burger, Container, rem, Text, Anchor } from '@mantine/core';
+import { createStyles, Header, Menu, Group, Center, Burger, Container, rem, Text, Anchor, Button } from '@mantine/core';
 import { useDisclosure, useLocalStorage } from '@mantine/hooks';
 import { IconChevronDown, IconBrandApple } from '@tabler/icons-react';
 import Link from 'next/link';
 import useCurrentUser, { UserState } from '@/hooks/store/user.store';
-import { getProviders } from 'next-auth/react';
+import { useSession, signIn, signOut } from "next-auth/react"
 import UserAvatar from './UserAvatar';
 import { useRouter } from 'next/navigation';
 // import { MantineLogo } from '@mantine/ds';
@@ -61,25 +61,26 @@ const useStyles = createStyles((theme) => ({
 
 const AppHeader = () => {
     const [opened, { toggle }] = useDisclosure(false);
+    const { data: session } = useSession()
     const { classes } = useStyles()
     const router = useRouter()
     const userStore = useCurrentUser()
-    const [userInfo, setUserInfo] = useState<UserState | undefined>(undefined)
+    const [userInfo, setUserInfo] = useState<UserState>({
+      uid: '123',
+      token: '',
+      validation: 30,
+    })
     const [cachedUser, setCachedUser] = useLocalStorage({key: 'user', defaultValue: ''})
-    console.log(cachedUser)
-    console.log(userInfo)
+
     const onLogout = ()=>{
       setCachedUser('')
-      setUserInfo(undefined)
+      // setUserInfo(undefined)
       router.replace('/')
     }
     useEffect(()=>{
       if(!userInfo && cachedUser){
         try {
-          console.log('come in')
-          console.log(cachedUser)
           setUserInfo(JSON.parse(cachedUser))
-          console.log(userInfo)
           userInfo && userStore.update(userInfo)
         } catch (error) {
           console.log(error)
@@ -115,13 +116,13 @@ const AppHeader = () => {
               >
                 About
               </a>
-              {userInfo ? <UserAvatar user={userInfo} logout= {onLogout}/> :<a
+              {session?.user ? <UserAvatar user={{username: session.user.name || '', image: session.user.image || ''}} logout= {signOut}/> :<Button
                 key={'head-link-login'}
-                href={'/login'}
+                onClick={()=> signIn()}
                 className={classes.link}
               >
                 登录
-              </a>}
+              </Button>}
             </Group>
             <Burger
               opened={opened}

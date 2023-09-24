@@ -35,7 +35,6 @@ export const POST = async (request: NextRequest) => {
       username: '晴天小猪',
       email: username
     }
-    console.log(userInfo.token)
     return NextResponse.json({ message: "登录成功", now: Date.now(), ...userInfo })
   }else{
     await connectToDB()
