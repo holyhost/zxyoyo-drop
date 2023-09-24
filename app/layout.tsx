@@ -4,7 +4,6 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { MantineProvider } from '@mantine/core'
-import { Main, NextScript } from 'next/document'
 import { AppLayout } from '@/components/AppLayout'
 const inter = Inter({ subsets: ['latin'] })
 
