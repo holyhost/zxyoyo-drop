@@ -9,8 +9,13 @@ export const metadata: Metadata = {
 const Layout = ({children}:{children: React.ReactNode}) => {
   return (
     <>
-      <div>Layout</div>
-      <div>{children}</div>
+    <html>
+      <body>
+        <div>Layout</div>
+        <div>{children}</div>
+      </body>
+    </html>
+      
     </>
 
   )

@@ -1,5 +1,5 @@
 "use client"
-import { AppLayout } from '@/components/AppLayout'
+import { AppLayout } from '@/components/layout/AppLayout'
 import { Center, Loader } from '@mantine/core'
 import { useRouter } from 'next/navigation'
 import React, { ReactElement, useEffect, useState } from 'react'

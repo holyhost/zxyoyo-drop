@@ -6,7 +6,7 @@ import { IconChevronDown, IconBrandApple } from '@tabler/icons-react';
 import Link from 'next/link';
 import useCurrentUser, { UserState } from '@/hooks/store/user.store';
 import { useSession, signIn, signOut } from "next-auth/react"
-import UserAvatar from './UserAvatar';
+import UserAvatar from '../UserAvatar';
 import { useRouter } from 'next/navigation';
 // import { MantineLogo } from '@mantine/ds';
 

@@ -1,4 +1,4 @@
-import AppHeader from '@/components/AppHeader'
+import AppHeader from '@/components/layout/AppHeader'
 import React from 'react'
 
 const Post = () => {

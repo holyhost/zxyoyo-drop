@@ -1,5 +1,5 @@
 "use client"
-import { AppLayout } from '@/components/AppLayout'
+import { AppLayout } from '@/components/layout/AppLayout'
 import React from 'react'
 
 const Register = () => {

@@ -1,6 +1,7 @@
 "use client"
 import { PoemBean } from '@/bean/PoemBean'
 import PoemList from '@/components/gushi/PoemList'
+import MantineLayout from '@/components/layout/MantineLayout'
 // import { AppLayout } from '@/components/AppLayout'
 import { Center, Container, Loader } from '@mantine/core'
 import React, { ReactElement, useEffect, useState } from 'react'
@@ -14,16 +15,16 @@ const Home = () => {
   useEffect(() => setInited(true), [])
   useEffect(() => {
     fetch('/api/gsc')
-    .then(res => res.json())
-    .then(res => setData(res.data.data))
+      .then(res => res.json())
+      .then(res => setData(res.data.data))
   }, [])
   return (
     <>
       {inited ? <Container>
-        <PoemList data={data} />
-        {/* <AppLayout>
-        <PoemList />
-      </AppLayout> */}
+        {/* <PoemList data={data} /> */}
+        <MantineLayout>
+          <PoemList data={data} />
+        </MantineLayout>
       </Container> : loading}
     </>)
 }

@@ -17,7 +17,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import MD5 from 'crypto-js/md5'
-import { AppLayout } from '@/components/AppLayout';
+import { AppLayout } from '@/components/layout/AppLayout';
 import { IconAlertCircle } from '@tabler/icons-react';
 import useCurrentUser from '@/hooks/store/user.store';
 import { useLocalStorage } from '@mantine/hooks';
