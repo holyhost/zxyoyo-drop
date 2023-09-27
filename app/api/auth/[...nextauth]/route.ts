@@ -6,7 +6,7 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from 'next-auth/providers/google'
 
-const handler = NextAuth({
+export const authOptions = {
     providers: [
         GoogleProvider({
             clientId: '123123',
@@ -24,6 +24,7 @@ const handler = NextAuth({
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials, req) {
+                // middleware.ts -> authorezed will call this method
                 // You need to provide your own logic here that takes the credentials
                 // submitted and returns eith a object representing a user or value
                 // that is false/null if the credentials are invalid.
@@ -34,14 +35,9 @@ const handler = NextAuth({
                 const pwd = process.env.ADMIN_PWD
                 const secret = process.env.NEXTAUTH_SECRET ?? 'zxyoyo'
                 if(credentials?.username === email && credentials?.password === pwd){
-                    return {
-                        id: MD5(credentials?.username + secret + credentials?.password).toString(),
-                        name: credentials?.username,
-                        password: credentials?.password,
-                        image: '/admin.png',
-                        token: 'this is a token ,aaaaa',
-                        role: 'admin'
-                    }
+                    await connectToDB()
+                    const sessionUser = await User.findOne({email: credentials?.username})
+                    return sessionUser
                 }
                 
                 // const res = await fetch("/your/endpoint", {
@@ -81,21 +77,20 @@ const handler = NextAuth({
         //         return false
         //     }
         // },
-        // async session({session}){
-        //     console.log('will log session')
-        //     console.log(session)
-        //     const sessionUser = await User.findOne({email:session?.user?.email})
-        //     if(session && session.user){
-        //         console.log('session',sessionUser)
-        //         session.user.name = sessionUser._id.toString()
-        //     }
+        async session({session}: {session: any}){
+            // call getserversession will enter this method
+            await connectToDB()
+            const sessionUser = await User.findOne({email:session?.user?.name})
+            if(session && session.user){
+                console.log('session',sessionUser)
+                session.user.name = sessionUser._id.toString()
+                session.user = sessionUser
+            }
                 
-        //     return session
-        // },
+            return session
+        },
 
-        async jwt({token, account, user}) {
-            console.log('account', account)
-            console.log('account', user)
+        async jwt({token, account, user}: {token: any, account: any, user: any}) {
             if(account){
                 console.log('token', token)
                 token.user = user
@@ -105,6 +100,8 @@ const handler = NextAuth({
           },
     }
 
-})
+}
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }

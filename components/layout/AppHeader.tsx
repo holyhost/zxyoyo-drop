@@ -62,35 +62,8 @@ const useStyles = createStyles((theme) => ({
 const AppHeader = () => {
     const [opened, { toggle }] = useDisclosure(false);
     const { data: session } = useSession()
+    console.log(session)
     const { classes } = useStyles()
-    const router = useRouter()
-    const userStore = useCurrentUser()
-    const [userInfo, setUserInfo] = useState<UserState>({
-      uid: '123',
-      token: '',
-      validation: 30,
-    })
-    const [cachedUser, setCachedUser] = useLocalStorage({key: 'user', defaultValue: ''})
-
-    const onLogout = ()=>{
-      setCachedUser('')
-      // setUserInfo(undefined)
-      router.replace('/')
-    }
-    useEffect(()=>{
-      if(!userInfo && cachedUser){
-        try {
-          setUserInfo(JSON.parse(cachedUser))
-          userInfo && userStore.update(userInfo)
-        } catch (error) {
-          console.log(error)
-        }
-      }else{
-        console.log(userInfo)
-      }
-    })
-    
-
 
     return (
       <Header height={56} className={classes.header} mb={120}>

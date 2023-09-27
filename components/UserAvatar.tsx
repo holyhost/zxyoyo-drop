@@ -2,6 +2,7 @@ import React from 'react'
 import { createStyles, Header, Menu, Group, Center, Burger, Container, rem, Text, Anchor, Avatar } from '@mantine/core';
 import { IconChevronDown, IconDoorExit, IconInfoCircle } from '@tabler/icons-react';
 import {UserState} from '@/hooks/store/user.store'
+import Link from 'next/link';
 
 const UserAvatar = ({
   user,
@@ -24,6 +25,11 @@ const UserAvatar = ({
                     icon={<IconInfoCircle size={14} />} 
                     key={'user-detail'}>
                       {user.username} 
+                </Menu.Item>
+                <Menu.Item 
+                    icon={<IconInfoCircle size={14} />} 
+                    key={'user-admin'}>
+                      <Link href="/user/admin">管理员</Link>
                 </Menu.Item>
                 <Menu.Item
                     icon={<IconDoorExit size={14} />}  

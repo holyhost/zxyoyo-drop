@@ -7,9 +7,13 @@ const UserSchema = new Schema({
         required: [true, 'Email is required!']
     },
 
-    username: {
+    name: {
         type: String,
         required: [true, 'Username is required!']
+    },
+    role: {
+        type: String,
+        default: 'user'
     },
     image: {
         type: String
