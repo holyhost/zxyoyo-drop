@@ -1,13 +1,10 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { createStyles, Header, Menu, Group, Center, Burger, Container, rem, Text, Anchor, Button } from '@mantine/core';
 import { useDisclosure, useLocalStorage } from '@mantine/hooks';
-import { IconChevronDown, IconBrandApple } from '@tabler/icons-react';
-import Link from 'next/link';
-import useCurrentUser, { UserState } from '@/hooks/store/user.store';
+import { IconBrandApple } from '@tabler/icons-react';
 import { useSession, signIn, signOut } from "next-auth/react"
 import UserAvatar from '../UserAvatar';
-import { useRouter } from 'next/navigation';
 // import { MantineLogo } from '@mantine/ds';
 
 
@@ -62,7 +59,6 @@ const useStyles = createStyles((theme) => ({
 const AppHeader = () => {
     const [opened, { toggle }] = useDisclosure(false);
     const { data: session } = useSession()
-    console.log(session)
     const { classes } = useStyles()
 
     return (

@@ -4,7 +4,6 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 
 const Page = async() => {
   const session = await getServerSession(authOptions)
-  console.log(session)
   return (
     <div>
       this is hello kitty

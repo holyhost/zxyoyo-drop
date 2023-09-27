@@ -82,7 +82,6 @@ export const authOptions = {
             await connectToDB()
             const sessionUser = await User.findOne({email:session?.user?.name})
             if(session && session.user){
-                console.log('session',sessionUser)
                 session.user.name = sessionUser._id.toString()
                 session.user = sessionUser
             }
@@ -92,7 +91,7 @@ export const authOptions = {
 
         async jwt({token, account, user}: {token: any, account: any, user: any}) {
             if(account){
-                console.log('token', token)
+                console.log('jwt-token', token)
                 token.user = user
                 token.role = "admin"
             }

@@ -20,4 +20,4 @@ export default withAuth(
   }
 )
 
-export const config = { matcher: ["/admin", "/todo"] }
+export const config = { matcher: ["/user/admin", "/todo"] }
